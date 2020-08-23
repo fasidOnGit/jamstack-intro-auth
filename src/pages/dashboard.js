@@ -9,6 +9,7 @@ import { navigate } from 'gatsby';
 import IdentityModal from 'react-netlify-identity-widget';
 
 import 'react-netlify-identity-widget/styles.css';
+import PrivateRoute from '../components/private-route';
 
 const Dashboard = ({ location }) => {
     const [isVisible, setVisibilty] = useState(false);
@@ -22,10 +23,10 @@ const Dashboard = ({ location }) => {
 
     return (
         <Layout>
-            <Profile />
+            <Profile showModal={showModal} />
             <Router>
-                <RouteBase path="/dashboard/base" />
-                <RouteSecret path="/dashboard/secret" />
+                <PrivateRoute path="/dashboard/base" component={RouteBase} />
+                <PrivateRoute path="/dashboard/secret" component={RouteSecret} />
                 <RouteLogin path="/dashboard/login" showModal={showModal}/>
             </Router>
             <IdentityModal showDialog={isVisible} onCloseDialog={() => setVisibilty(false)} />
